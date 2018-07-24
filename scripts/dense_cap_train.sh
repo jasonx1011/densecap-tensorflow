@@ -24,6 +24,15 @@ if [ -d '/home/joe' ]; then
     data_dir='/home/joe/git/visual_genome'
 fi
 
+if [ -d '/home/chienchih' ]; then
+    DATASET='visual_genome_1.2'
+    NET='res50'
+    ckpt_path="/home/chienchih/data/VG/coco_2014_train+coco_2014_valminusminival/res50_faster_rcnn_iter_1190000.ckpt"
+    # ckpt_path=""
+    data_dir='/home/chienchih/data/visual_genome'
+    step=1
+fi
+
 case $DATASET in
    visual_genome)
     TRAIN_IMDB="vg_1.0_train"
@@ -62,6 +71,7 @@ exec &> >(tee -a "$LOG")
 echo Logging output to "$LOG"
 
 # First step, freeze conv nets weights
+echo "### step 1: freeze conv nets weights"
 if [ ${step} -lt '2' ]
 then
 time python ./tools/train_net.py \
@@ -76,6 +86,7 @@ time python ./tools/train_net.py \
 fi
 
 # Step2: Finetune convnets
+echo "### step 2: Finetune convnets"
 NEW_WIGHTS=output/dc_conv_fixed/${TRAIN_IMDB}
 if [ ${step} -lt '3' ]
 then
@@ -91,6 +102,8 @@ time python ./tools/train_net.py \
 fi
 
 # Step3: train with contex fusion
+echo "### step 3: train with contex fusion"
+NEW_WIGHTS=output/dc_conv_fixed/${TRAIN_IMDB}
 NEW_WIGHTS=output/dc_tune_conv/${TRAIN_IMDB}
 if [ ${step} -lt '4' ]
 then
@@ -106,6 +119,7 @@ time python ./tools/train_net.py \
 fi
 
 # Step4: finetune context fusion
+echo "### step 4: finetune context fusion"
 NEW_WIGHTS=output/dc_context/${TRAIN_IMDB}
 if [ ${step} -lt '5' ]
 then
