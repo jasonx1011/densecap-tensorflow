@@ -26,7 +26,8 @@ from lib.limit_ram.utils import is_valid_limitRam
 DEBUG = False
 # TODO: It's time comsuming in limit-ram mode. Make sure to set False once you
 # finished preparing gt roidbs.
-USE_CACHE = True
+# USE_CACHE = True
+USE_CACHE = False
 UNK_IDENTIFIER = '<unk>'
 
 
@@ -155,6 +156,7 @@ class visual_genome(imdb):
         """
         cache_file = pjoin(self._data_path, self._image_set + '_gt_roidb.pkl')
         cache_file_phrases = pjoin(self._data_path, self._image_set + '_gt_phrases.pkl')
+        print("### cache_file = {}".format(cache_file))
         if os.path.exists(cache_file) and USE_CACHE:
             with open(cache_file, 'rb') as fid:
                 roidb = cPickle.load(fid)
