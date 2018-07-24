@@ -32,8 +32,10 @@ import argparse
 parser = argparse.ArgumentParser(description='Preprocessing visual genome')
 parser.add_argument('--version', dest='version', type=float, default=1.2, help='the version of visual genome dataset.')
 # NOTE: one need to change the path accordingly
-parser.add_argument('--path', dest='path', type=str, default='/home/joe/git/VG_raw_data', help='directory saving the raw dataset')
-parser.add_argument('--output_dir', dest='output_dir', type=str, default='/home/joe/git/visual_genome', help='output directory of data files')
+# parser.add_argument('--path', dest='path', type=str, default='/home/joe/git/VG_raw_data', help='directory saving the raw dataset')
+# parser.add_argument('--output_dir', dest='output_dir', type=str, default='/home/joe/git/visual_genome', help='output directory of data files')
+parser.add_argument('--path', dest='path', type=str, default='/home/chienchih/data/VG', help='directory saving the raw dataset')
+parser.add_argument('--output_dir', dest='output_dir', type=str, default='/home/chienchih/data/visual_genome', help='output directory of data files')
 parser.add_argument('--limit_ram', dest='limit_ram', action='store_true')
 parser.add_argument('--max_words', dest='max_words', type=int, default=10, help='maximum length of words for training.')
 args = parser.parse_args()
