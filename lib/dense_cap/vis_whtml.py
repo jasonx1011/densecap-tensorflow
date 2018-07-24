@@ -16,7 +16,8 @@ def vis_whtml(im_path, im, captions, dets, pre_results=dict(),
               thresh=0.5, save_path='./vis/data'):
     print("visualizing with pretty html...")
     if not os.path.exists(save_path):
-        os.mkdirs(save_path)
+        # os.mkdirs(save_path)
+        os.makedirs(save_path)
 
     im_name = im_path.split('/')[-1][:-4]
     box_xywh = []
